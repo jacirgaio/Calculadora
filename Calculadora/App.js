@@ -9,20 +9,20 @@ export default function App() {
   const [currentNumber, setCurrentNumber] = useState("")
   const [lastNumber, setLastNumber] = useState("")
 
-  function calculatePercentage() {
-    const splitNumbers = currentNumber.split(' ');
-    const operatorIndex = splitNumbers.findIndex(item => item === '%');
+  // function calculatePercentage() {
+  //   const splitNumbers = currentNumber.split(' ');
+  //   const operatorIndex = splitNumbers.findIndex(item => item === '%');
     
-    // Verifica se o operador "%" existe e tem um número à esquerda e à direita
-    if (operatorIndex !== -1 && operatorIndex !== 0 && operatorIndex !== splitNumbers.length - 1) {
-      const value = parseFloat(splitNumbers[operatorIndex - 1]);
-      const percentage = parseFloat(splitNumbers[operatorIndex + 1]);
+  //   // Verifica se o operador "%" existe e tem um número à esquerda e à direita
+  //   if (operatorIndex !== -1 && operatorIndex !== 0 && operatorIndex !== splitNumbers.length - 1) {
+  //     const value = parseFloat(splitNumbers[operatorIndex - 1]);
+  //     const percentage = parseFloat(splitNumbers[operatorIndex + 1]);
   
-      const calculatedResult = (value * (percentage / 100)).toFixed(2);
-      setCurrentNumber(calculatedResult.toString());
-      setLastNumber('');
-    }
-  }
+  //     const calculatedResult = (value * (percentage / 100)).toFixed(2);
+  //     setCurrentNumber(calculatedResult.toString());
+  //     setLastNumber('');
+  //   }
+  // }
 
   function calculator() {
     const splitNumbers = currentNumber.split(' ')
@@ -50,7 +50,7 @@ export default function App() {
         return
 
       case '%':
-        calculatePercentage();
+        // calculatePercentage();
         return
     }
   }
@@ -101,12 +101,12 @@ export default function App() {
 
         {buttons.map((button) =>
           button === '=' ? // Mapeamento do botão =
-            <TouchableOpacity onPress={() => handleInput(button)} key={button} style={[styles.button, { backgroundColor: '#3dd0e3' }]}>
+            <TouchableOpacity onPress={() => handleInput(button)} key={button} style={styles.buttonIgual}>
               <Text style={[styles.textButton, { color: "white", fontSize: 30 }]}>{button}</Text>
             </TouchableOpacity>
             : // Mapeamento dos outros botões
             <TouchableOpacity onPress={() => handleInput(button)} key={button} style={styles.button}>
-              <Text style={[styles.textButton, { color: typeof (button) === 'number' ? 'black' : '#0093a6' }]}>{button}</Text>
+              <Text style={[styles.textButton, { color: typeof (button) === 'number' ? 'white' : '#7D7C7C' }]}>{button}</Text>
             </TouchableOpacity>
         )}
       </View>
@@ -122,17 +122,17 @@ const styles = StyleSheet.create({
   results: {
     flex: 2,
     justifyContent: "center",
-    backgroundColor: "#f5f5f5"
+    backgroundColor: "#070F2B"
   },
   resultText: {
-    color: "#282F38",
+    color: 'white',
     fontSize: 32,
     fontWeight: "bold",
     padding: 12,
     textAlign: "right"
   },
   historyText: {
-    color: "#7c7c7c",
+    color: "#7D7C7C",
     fontSize: 20,
     marginRight: 10,
     alignSelf: 'flex-end',
@@ -140,14 +140,25 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    backgroundColor: '#3C0753',
+
   },
   button: {
-    backgroundColor: 'white',
+    backgroundColor: '#3C0753',
     alignItems: 'center',
     justifyContent: 'center',
     minWidth: 90,
     minHeight: 90,
     flex: 2,
+  },
+  buttonIgual: {
+    backgroundColor: '#070F2B',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 90,
+    minHeight: 90,
+    flex: 2,
+    borderRadius: 3,
   },
   textButton: {
     color: "#7c7c7c",
