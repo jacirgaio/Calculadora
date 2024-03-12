@@ -9,20 +9,6 @@ export default function App() {
   const [currentNumber, setCurrentNumber] = useState("")
   const [lastNumber, setLastNumber] = useState("")
 
-  // function calculatePercentage() {
-  //   const splitNumbers = currentNumber.split(' ');
-  //   const operatorIndex = splitNumbers.findIndex(item => item === '%');
-    
-  //   // Verifica se o operador "%" existe e tem um número à esquerda e à direita
-  //   if (operatorIndex !== -1 && operatorIndex !== 0 && operatorIndex !== splitNumbers.length - 1) {
-  //     const value = parseFloat(splitNumbers[operatorIndex - 1]);
-  //     const percentage = parseFloat(splitNumbers[operatorIndex + 1]);
-  
-  //     const calculatedResult = (value * (percentage / 100)).toFixed(2);
-  //     setCurrentNumber(calculatedResult.toString());
-  //     setLastNumber('');
-  //   }
-  // }
 
   function calculator() {
     const splitNumbers = currentNumber.split(' ')
@@ -48,10 +34,6 @@ export default function App() {
       case '/':
         setCurrentNumber((fistNumber / lastNumber).toString())
         return
-
-      case '%':
-        // calculatePercentage();
-        return
     }
   }
 
@@ -67,7 +49,7 @@ export default function App() {
         setCurrentNumber(currentNumber.substring(0, (currentNumber.length - 1)))
         return
 
-      case 'LIMPAR': // Limpa todo o conteúdo
+      case 'LIMPAR':
         setLastNumber("")
         setCurrentNumber("")
         return
@@ -81,12 +63,26 @@ export default function App() {
         setCurrentNumber((parseFloat(currentNumber) * -1).toString());
         return
 
+      case '%':
+        Percentagem()
+        return
+
     }
 
     setCurrentNumber(currentNumber + buttonPressed)
   }
 
-  
+  function Percentagem() {
+    const splitNumbers = currentNumber.split(' ')
+    const lastNumberIndex = splitNumbers.length - 1
+    const lastNumber = parseFloat(splitNumbers[lastNumberIndex])
+
+    if (!isNaN(lastNumber)) {
+      splitNumbers[lastNumberIndex] = (lastNumber / 100).toString()
+      setCurrentNumber(splitNumbers.join(' '))
+    }
+  }
+
   return (
     <View style={styles.container}>
 
